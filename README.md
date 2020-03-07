@@ -1,8 +1,7 @@
 # Minimax Algorithm (Simple js implementation)
-![view during testing](https://github.com/MbuthiaWaKihara/TensionChessClock/blob/master/screenshots/second.png)
-![view during testing](https://github.com/MbuthiaWaKihara/TensionChessClock/blob/master/screenshots/third.png)
-![view during testing](https://github.com/MbuthiaWaKihara/TensionChessClock/blob/master/screenshots/fifth.png)
-![view during testing](https://github.com/MbuthiaWaKihara/TensionChessClock/blob/master/screenshots/sixth.png)
+![view during testing](https://github.com/MbuthiaWaKihara/minimax-algorithm/blob/master/images/first.png)
+![view during testing](https://github.com/MbuthiaWaKihara/minimax-algorithm/blob/master/images/second.png)
+![view during testing](https://github.com/MbuthiaWaKihara/minimax-algorithm/blob/master/images/third.png)
 
 # Purpose
 

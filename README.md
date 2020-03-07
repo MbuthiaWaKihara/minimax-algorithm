@@ -13,13 +13,13 @@
 
 # Known Bugs
 <p>One challenge I had interacting with the alg is move ordering. The algorithm is optimized if it checks moves starting from best to worst.</p>
-<p>In this particular implementation, I did not order the moves in any way, therefore the program simply searches the tree in a specific order. Consequently, there are situations where due to equality in evaluation, the program may chose a path that wins, but does not win on the spot. This bug can be fixed by either ordering moves from best to worst, so that the alg considers best moves first, or create a more specific static position evaluation so that even good moves have different evaluations(separate a good move from a better move)</p>
+<p>In this particular implementation, I did not order the moves in any way, therefore the program simply searches the tree in a specific order. Consequently, there are situations where due to equality in evaluation, the program may choose a path that wins, but does not win on the spot. This bug can be fixed by either ordering moves from best to worst, so that the alg considers best moves first, or create a more specific static position evaluation so that even good moves have different evaluations(separate a good move from a better move)</p>
 
 # Resources
 <p>The first screenshot is from a youtube video by Sebastian Lague, Algorithms Explained - minimax and alpha-beta prunning. Here's a link: https://www.youtube.com/watch?v=l-hh51ncgDI</p>
 
 # Demo
-<p>Test out a deployed version of the tic tac toe ai with a react-based simple gui: https://mbuthiawakihara.github.io/minimax-algorithm/</p>
+<p>Test out a deployed version of the tic tac toe ai with a simple react-based gui: https://mbuthiawakihara.github.io/minimax-algorithm/</p>
 
 # License
 <p>MIT</p>

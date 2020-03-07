@@ -19,7 +19,7 @@
 <p>The first screenshot is from a youtube video by Sebastian Lague, Algorithms Explained - minimax and alpha-beta prunning. Here's a link: https://www.youtube.com/watch?v=l-hh51ncgDI</p>
 
 # Demo
-<p>Test out a deployed version of the tic tac toe ai with a react-based simple gui: </p>
+<p>Test out a deployed version of the tic tac toe ai with a react-based simple gui: https://mbuthiawakihara.github.io/minimax-algorithm/</p>
 
 # License
 <p>MIT</p>

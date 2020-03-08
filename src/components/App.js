@@ -3,14 +3,19 @@ import React, {
     useEffect,
 } from 'react';
 import Grid from './Grid';
+import Notification from './Notification';
 import { 
     initializeGrid,
     handleUserClick,
     checkForWin,
     minimax,
  } from '../logic/GameLogic';
+ import { toast } from 'react-toastify';
+ import 'react-toastify/dist/ReactToastify.css';
+
 
 export const GameOverContext = React.createContext();
+toast.configure();
 
 const App = () => {
 
@@ -112,6 +117,13 @@ const App = () => {
         setGameOver(false);
     }
 
+    //5. Callback to trigger notification when there's a winner
+    const notify = winner => {
+        toast(<Notification winner={winner} />, {
+            //config
+        })
+    }
+
     //side effects
     //1. Whenever the turn changes, we need to check for win, or draw
     useEffect(
@@ -122,6 +134,7 @@ const App = () => {
                 setGameOver(true);                
                 
                 if(winStatus.win && !winStatus.draw){
+                    notify(winStatus.winner);
                     let gridCopy = grid;
                     grid.forEach(
                         (row, rowIndex) => {

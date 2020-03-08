@@ -1,11 +1,31 @@
 import React, {
     useContext,
+    useState, 
+    useEffect,
 } from 'react';
 import {GameOverContext} from './App';
+import {useSpring, animated} from 'react-spring'
 
 const Playable = ({gridInfo, handlePress}) => {
 
     const gameOver = useContext(GameOverContext);
+    const [isTextShown, setIsTextShown] = useState(false);
+    const effect = useSpring({
+        opacity: isTextShown ? 1 : 0,
+        config: {
+            duration: 500,
+        }
+    });
+
+    useEffect(
+        () => {
+            if(gridInfo.value){
+                setIsTextShown(true);
+            }else{
+                setIsTextShown(false);
+            }
+        },[gridInfo.value]
+    );
     return(
         <div
         style={{
@@ -24,7 +44,7 @@ const Playable = ({gridInfo, handlePress}) => {
             // console.log("clicked");
         }}
         >
-            <div
+            <animated.div
             style={{
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -34,11 +54,12 @@ const Playable = ({gridInfo, handlePress}) => {
                 width: '100%',
                 height: '100%',
                 color: '#ffffff',
+                opacity: effect.opacity,
             }}
             >
                     {gridInfo.value}
             
-            </div>
+            </animated.div>
         </div>
 
     );

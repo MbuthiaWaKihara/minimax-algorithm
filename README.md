@@ -18,6 +18,8 @@
 # Resources
 <p>The first screenshot is from a youtube video by Sebastian Lague, Algorithms Explained - minimax and alpha-beta prunning. Here's a link: https://www.youtube.com/watch?v=l-hh51ncgDI</p>
 
+<p>I also got some useful insights on how to apply the alg into a tic tac toe game from this video by the coding train: https://www.youtube.com/watch?v=trKjYdBASyQ&t=1252s</p>
+
 # Demo
 <p>Test out a deployed version of the tic tac toe ai with a simple react-based gui: https://mbuthiawakihara.github.io/minimax-algorithm/</p>
 

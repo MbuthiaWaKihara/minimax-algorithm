@@ -118,8 +118,8 @@ const App = () => {
     }
 
     //5. Callback to trigger notification when there's a winner
-    const notify = winner => {
-        toast(<Notification winner={winner} />, {
+    const notify = message => {
+        toast(<Notification message={message} />, {
             //config
         })
     }
@@ -134,7 +134,7 @@ const App = () => {
                 setGameOver(true);                
                 
                 if(winStatus.win && !winStatus.draw){
-                    notify(winStatus.winner);
+                    notify(`${winStatus.winner} won!`);
                     let gridCopy = grid;
                     grid.forEach(
                         (row, rowIndex) => {
@@ -153,6 +153,7 @@ const App = () => {
                     );
                     setGrid(gridCopy);
                 }
+                if(winStatus.draw) notify('Draw!');
                 
             }
         }, [turn]

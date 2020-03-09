@@ -176,72 +176,73 @@ export const checkForWin = (currentGrid) => {
 }
 
 export const minimax = (turn, grid, depth, alpha, beta, maximizingPlayer) => {
-    let winStatus = checkForWin(grid);
-    if(winStatus.win){
-        if(winStatus.winner === 'X') return 1;
-        if(winStatus.winner === 'O') return -1;
-    }
-    if(winStatus.draw) return 0;
-    if(depth === 0){
-        if(maximizingPlayer){
-            return -1;
-        }else{
-            return 1;
-        }
-    }
 
-    if(maximizingPlayer){
-        let newTurn;
-        if(turn === 'X'){
-            newTurn = 'O';
-        }else{
-            newTurn = 'X';
-        }
-        let gridCopy = grid;
-            //make a move
-            let bestScore = -Infinity;
-            for(let rowCounter = 0; rowCounter < 3; rowCounter++){ 
-                for(let columnCounter = 0; columnCounter < 3; columnCounter++){
-                    if(!grid[rowCounter][columnCounter].value){
-                        gridCopy[rowCounter][columnCounter].value = 'X';
-                        let score = minimax(newTurn, gridCopy, depth - 1, alpha, beta, false);
-                        gridCopy[rowCounter][columnCounter].value = null;
-                        bestScore = Math.max(bestScore, score);
-                        alpha = Math.max(alpha, score);
-                    }
-                }
-                if(beta <= alpha){
-                    // console.log("prunning on X");
-                    break;
+            let winStatus = checkForWin(grid);
+            if(winStatus.win){
+                if(winStatus.winner === 'X') return 1;
+                if(winStatus.winner === 'O') return -1;
+            }
+            if(winStatus.draw) return 0;
+            if(depth === 0){
+                if(maximizingPlayer){
+                    return -1;
+                }else{
+                    return 1;
                 }
             }
-            return bestScore;
-    }else{
-        let newTurn;
-        if(turn === 'X'){
-            newTurn = 'O';
-        }else{
-            newTurn = 'X';
-        }
-        let gridCopy = grid;
-            //make a move
-            let bestScore = Infinity;
-            for(let rowCounter = 0; rowCounter < 3; rowCounter++){ 
-                for(let columnCounter = 0; columnCounter < 3; columnCounter++){
-                    if(!grid[rowCounter][columnCounter].value){
-                        gridCopy[rowCounter][columnCounter].value = 'O';
-                        let score = minimax(newTurn, gridCopy, depth - 1, alpha, beta, true);
-                        gridCopy[rowCounter][columnCounter].value = null;
-                        bestScore = Math.min(bestScore, score);
-                        beta = Math.min(beta, score)
-                    }
-                }
 
-                if(beta <= alpha){
-                    // console.log("prunning on O");
-                    break;
+            if(maximizingPlayer){
+                let newTurn;
+                if(turn === 'X'){
+                    newTurn = 'O';
+                }else{
+                    newTurn = 'X';
                 }
-            }
-            return bestScore;
-    }
+                let gridCopy = grid;
+                    //make a move
+                    let bestScore = -Infinity;
+                    for(let rowCounter = 0; rowCounter < 3; rowCounter++){ 
+                        for(let columnCounter = 0; columnCounter < 3; columnCounter++){
+                            if(!grid[rowCounter][columnCounter].value){
+                                gridCopy[rowCounter][columnCounter].value = 'X';
+                                let score = minimax(newTurn, gridCopy, depth - 1, alpha, beta, false);
+                                gridCopy[rowCounter][columnCounter].value = null;
+                                bestScore = Math.max(bestScore, score);
+                                alpha = Math.max(alpha, score);
+                            }
+                        }
+                        if(beta <= alpha){
+                            // console.log("prunning on X");
+                            break;
+                        }
+                    }
+                    return bestScore;
+            }else{
+                let newTurn;
+                if(turn === 'X'){
+                    newTurn = 'O';
+                }else{
+                    newTurn = 'X';
+                }
+                let gridCopy = grid;
+                    //make a move
+                    let bestScore = Infinity;
+                    for(let rowCounter = 0; rowCounter < 3; rowCounter++){ 
+                        for(let columnCounter = 0; columnCounter < 3; columnCounter++){
+                            if(!grid[rowCounter][columnCounter].value){
+                                gridCopy[rowCounter][columnCounter].value = 'O';
+                                let score = minimax(newTurn, gridCopy, depth - 1, alpha, beta, true);
+                                gridCopy[rowCounter][columnCounter].value = null;
+                                bestScore = Math.min(bestScore, score);
+                                beta = Math.min(beta, score)
+                            }
+                        }
+
+                        if(beta <= alpha){
+                            // console.log("prunning on O");
+                            break;
+                        }
+                    }
+                    return bestScore;
+            }      
 }

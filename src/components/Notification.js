@@ -1,13 +1,13 @@
 import React from 'react'
 
-export const Notification = ({ closeToast, winner}) => {
+export const Notification = ({ closeToast, message}) => {
     return (
         <>
             <div
             style={{
             }}
             >
-                {`${winner} won!`}
+                {message}
             </div>
             <button
             style={{

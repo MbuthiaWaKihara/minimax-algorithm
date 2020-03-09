@@ -183,8 +183,12 @@ const App = () => {
                             for(let columnCounter = 0; columnCounter < 3; columnCounter++){
                                 if(!grid[rowCounter][columnCounter].value){
                                     gridCopy[rowCounter][columnCounter].value = turn;
+                                    gridCopy[rowCounter][columnCounter].considered = true;
+                                    setGrid(gridCopy);
                                     let score = minimax(turn, gridCopy, depth, -Infinity, Infinity, false);
                                     gridCopy[rowCounter][columnCounter].value = null;
+                                    gridCopy[rowCounter][columnCounter].considered = false;
+                                    setGrid(gridCopy);
                                     if(score > bestScore) {
                                         move.row = rowCounter;
                                         move.column = columnCounter;
@@ -198,8 +202,12 @@ const App = () => {
                             for(let columnCounter = 0; columnCounter < 3; columnCounter++){
                                 if(!grid[rowCounter][columnCounter].value){
                                     gridCopy[rowCounter][columnCounter].value = turn;
+                                    gridCopy[rowCounter][columnCounter].considered = true;
+                                    setGrid(gridCopy);
                                     let score = minimax(turn, gridCopy, depth, -Infinity, Infinity, true);
                                     gridCopy[rowCounter][columnCounter].value = null;
+                                    gridCopy[rowCounter][columnCounter].considered = false;
+                                    setGrid(gridCopy);
                                     if(score < bestScore) {
                                         move.row = rowCounter;
                                         move.column = columnCounter;
@@ -213,6 +221,7 @@ const App = () => {
                     const winStatus = checkForWin(grid);
                     if(!winStatus.win && !winStatus.draw){
                         gridCopy[move.row][move.column].value = turn;
+                        gridCopy[move.row][move.column].considered = true;
     
                         //change to play
                         setToPlay({

@@ -38,6 +38,8 @@ const Playable = ({gridInfo, handlePress}) => {
             alignItems: 'center',
             justifyContent: 'center',
             cursor: 'pointer',
+            border: gridInfo.considered ? '2px solid red' : 'none',
+            // border: '2px solid red',
         }}
         onClick={() => {
             if(!gridInfo.value && !gameOver) handlePress(gridInfo);

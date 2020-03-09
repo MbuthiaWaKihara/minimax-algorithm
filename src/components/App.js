@@ -161,117 +161,121 @@ const App = () => {
     //2. We need to use changes in ai to determine whether it's the computer's turn to play
     useEffect(
         () => {
-            //check whether it's the computer's turn to move
-            //if it is, use minimax to help the computer make the best move
-            if(!gameOver && ai){
-                if(toPlay.ai && !toPlay.human){
-                    let gridCopy = grid;
-                    //make a move
-                    //if the ai is always maximizing
-                    let bestScore
-                    if(turn === 'X'){
-                        bestScore = -Infinity;
-                    }else{
-                        bestScore = Infinity;
-                    }
-                    let move = {
-                        row: null,
-                        column: null,
-                    }
-                    if(turn === 'X'){
-                        for(let rowCounter = 0; rowCounter < 3; rowCounter++){ 
-                            for(let columnCounter = 0; columnCounter < 3; columnCounter++){
-                                if(!grid[rowCounter][columnCounter].value){
-                                    gridCopy[rowCounter][columnCounter].value = turn;
-                                    gridCopy[rowCounter][columnCounter].considered = true;
-                                    setGrid(gridCopy);
-                                    let score = minimax(turn, gridCopy, depth, -Infinity, Infinity, false);
-                                    gridCopy[rowCounter][columnCounter].value = null;
-                                    gridCopy[rowCounter][columnCounter].considered = false;
-                                    setGrid(gridCopy);
-                                    if(score > bestScore) {
-                                        move.row = rowCounter;
-                                        move.column = columnCounter;
+            setTimeout(
+                () => {
+                    //check whether it's the computer's turn to move
+                    //if it is, use minimax to help the computer make the best move
+                    if(!gameOver && ai){
+                        if(toPlay.ai && !toPlay.human){
+                            let gridCopy = grid;
+                            //make a move
+                            //if the ai is always maximizing
+                            let bestScore
+                            if(turn === 'X'){
+                                bestScore = -Infinity;
+                            }else{
+                                bestScore = Infinity;
+                            }
+                            let move = {
+                                row: null,
+                                column: null,
+                            }
+                            if(turn === 'X'){
+                                for(let rowCounter = 0; rowCounter < 3; rowCounter++){ 
+                                    for(let columnCounter = 0; columnCounter < 3; columnCounter++){
+                                        if(!grid[rowCounter][columnCounter].value){
+                                            gridCopy[rowCounter][columnCounter].value = turn;
+                                            gridCopy[rowCounter][columnCounter].considered = true;
+                                            setGrid(gridCopy);
+                                            let score = minimax(turn, gridCopy, depth, -Infinity, Infinity, false);
+                                            gridCopy[rowCounter][columnCounter].value = null;
+                                            gridCopy[rowCounter][columnCounter].considered = false;
+                                            setGrid(gridCopy);
+                                            if(score > bestScore) {
+                                                move.row = rowCounter;
+                                                move.column = columnCounter;
+                                            }
+                                            bestScore = Math.max(bestScore, score);
+                                        }
                                     }
-                                    bestScore = Math.max(bestScore, score);
+                                }
+                            }else{
+                                for(let rowCounter = 0; rowCounter < 3; rowCounter++){ 
+                                    for(let columnCounter = 0; columnCounter < 3; columnCounter++){
+                                        if(!grid[rowCounter][columnCounter].value){
+                                            gridCopy[rowCounter][columnCounter].value = turn;
+                                            gridCopy[rowCounter][columnCounter].considered = true;
+                                            setGrid(gridCopy);
+                                            let score = minimax(turn, gridCopy, depth, -Infinity, Infinity, true);
+                                            gridCopy[rowCounter][columnCounter].value = null;
+                                            gridCopy[rowCounter][columnCounter].considered = false;
+                                            setGrid(gridCopy);
+                                            if(score < bestScore) {
+                                                move.row = rowCounter;
+                                                move.column = columnCounter;
+                                            }
+                                            bestScore = Math.min(bestScore, score);
+                                        }
+                                    }
                                 }
                             }
-                        }
-                    }else{
-                        for(let rowCounter = 0; rowCounter < 3; rowCounter++){ 
-                            for(let columnCounter = 0; columnCounter < 3; columnCounter++){
-                                if(!grid[rowCounter][columnCounter].value){
-                                    gridCopy[rowCounter][columnCounter].value = turn;
-                                    gridCopy[rowCounter][columnCounter].considered = true;
-                                    setGrid(gridCopy);
-                                    let score = minimax(turn, gridCopy, depth, -Infinity, Infinity, true);
-                                    gridCopy[rowCounter][columnCounter].value = null;
-                                    gridCopy[rowCounter][columnCounter].considered = false;
-                                    setGrid(gridCopy);
-                                    if(score < bestScore) {
-                                        move.row = rowCounter;
-                                        move.column = columnCounter;
-                                    }
-                                    bestScore = Math.min(bestScore, score);
-                                }
-                            }
-                        }
-                    }
 
-                    const winStatus = checkForWin(grid);
-                    if(!winStatus.win && !winStatus.draw){
-                        gridCopy[move.row][move.column].value = turn;
-                        gridCopy[move.row][move.column].considered = true;
-    
-                        //change to play
-                        setToPlay({
-                            ai: false,
-                            human: true,
-                        });
-        
-                        //change grid
-                        setGrid(gridCopy);
-        
-                        //change turn
-                        setTurn(
-                            previousTurn => {
-                            let newTurn;
-                            if(previousTurn === 'X'){
-                                newTurn = 'O';
+                            const winStatus = checkForWin(grid);
+                            if(!winStatus.win && !winStatus.draw){
+                                gridCopy[move.row][move.column].value = turn;
+                                gridCopy[move.row][move.column].considered = true;
+            
+                                //change to play
+                                setToPlay({
+                                    ai: false,
+                                    human: true,
+                                });
+                
+                                //change grid
+                                setGrid(gridCopy);
+                
+                                //change turn
+                                setTurn(
+                                    previousTurn => {
+                                    let newTurn;
+                                    if(previousTurn === 'X'){
+                                        newTurn = 'O';
+                                    }else{
+                                        newTurn = 'X';
+                                    }
+                            
+                                    return newTurn;
+                                    }
+                                );
+                                
+                                setAi(false);
                             }else{
-                                newTurn = 'X';
+                                //change turn
+                                setTurn(
+                                    previousTurn => {
+                                    let newTurn;
+                                    if(previousTurn === 'X'){
+                                        newTurn = 'O';
+                                    }else{
+                                        newTurn = 'X';
+                                    }
+                            
+                                    return newTurn;
+                                    }
+                                );
+                                
+                                setAi(false);
+                                //change to play
+                                setToPlay({
+                                    ai: false,
+                                    human: true,
+                                });
+                
                             }
-                    
-                            return newTurn;
-                            }
-                        );
-                        
-                        setAi(false);
-                    }else{
-                        //change turn
-                        setTurn(
-                            previousTurn => {
-                            let newTurn;
-                            if(previousTurn === 'X'){
-                                newTurn = 'O';
-                            }else{
-                                newTurn = 'X';
-                            }
-                    
-                            return newTurn;
-                            }
-                        );
-                        
-                        setAi(false);
-                        //change to play
-                        setToPlay({
-                            ai: false,
-                            human: true,
-                        });
-        
+                        }
                     }
-                }
-            }
+                },500
+            );
         }, [ai]
     );
 

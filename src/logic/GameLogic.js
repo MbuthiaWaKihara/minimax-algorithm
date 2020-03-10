@@ -206,12 +206,8 @@ export const minimax = (turn, grid, depth, alpha, beta, maximizingPlayer) => {
                         for(let columnCounter = 0; columnCounter < 3; columnCounter++){
                             if(!grid[rowCounter][columnCounter].value){
                                 gridCopy[rowCounter][columnCounter].value = newTurn;
-                                gridCopy[rowCounter][columnCounter].considered = true;
-                                // setGrid(gridCopy);
                                 let score = minimax(newTurn, gridCopy, depth - 1, alpha, beta, false);
                                 gridCopy[rowCounter][columnCounter].value = null;
-                                gridCopy[rowCounter][columnCounter].considered = false;
-                                // setGrid(gridCopy);
                                 bestScore = Math.max(bestScore, score);
                                 alpha = Math.max(alpha, score);
                             }
@@ -236,12 +232,9 @@ export const minimax = (turn, grid, depth, alpha, beta, maximizingPlayer) => {
                         for(let columnCounter = 0; columnCounter < 3; columnCounter++){
                             if(!grid[rowCounter][columnCounter].value){
                                 gridCopy[rowCounter][columnCounter].value = newTurn;
-                                gridCopy[rowCounter][columnCounter].considered = true;
-                                // setGrid(gridCopy);
                                 let score = minimax(newTurn, gridCopy, depth - 1, alpha, beta, true);
                                 gridCopy[rowCounter][columnCounter].value = null;
-                                gridCopy[rowCounter][columnCounter].considered = false;
-                                // setGrid(gridCopy);
+                            
                                 bestScore = Math.min(bestScore, score);
                                 beta = Math.min(beta, score)
                             }
